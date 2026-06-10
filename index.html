@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DigitalYop — Solutions digitales pour commerces & familles</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0a08;
+  --surface:#111110;
+  --surface2:#1a1a16;
+  --gold:#f5c518;
+  --gold2:#e8a800;
+  --orange:#ff6b2b;
+  --green:#2dce6e;
+  --blue:#4ea8de;
+  --purple:#b48eff;
+  --text:#f0ede4;
+  --muted:#6b6b5a;
+  --border:#252520;
+  --wa:#25D366;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;overflow-x:hidden;}
+
+/* GRAIN */
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:16px 28px;display:flex;align-items:center;justify-content:space-between;background:rgba(10,10,8,0.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;letter-spacing:2px;color:var(--gold);text-shadow:0 0 30px rgba(245,197,24,0.25);line-height:1;}
+.nav-logo span{color:var(--orange);}
+.nav-right{display:flex;align-items:center;gap:12px;}
+.nav-services-btn{background:transparent;border:1px solid var(--border);color:var(--muted);padding:9px 16px;border-radius:4px;font-family:'Outfit',sans-serif;font-size:0.78rem;font-weight:600;cursor:pointer;text-decoration:none;transition:all .2s;display:none;}
+.nav-services-btn:hover{border-color:var(--gold);color:var(--gold);}
+.nav-cta{background:var(--wa);color:#fff;border:none;padding:10px 20px;border-radius:4px;font-family:'Outfit',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;text-decoration:none;display:flex;align-items:center;gap:7px;transition:opacity .2s,transform .2s;}
+.nav-cta:hover{opacity:.9;transform:translateY(-1px);}
+@media(min-width:600px){.nav-services-btn{display:flex;}}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 20px 60px;position:relative;overflow:hidden;}
+.hero-bg-text{position:absolute;font-family:'Bebas Neue',sans-serif;font-size:clamp(6rem,20vw,18rem);color:rgba(245,197,24,0.03);letter-spacing:8px;user-select:none;pointer-events:none;top:50%;transform:translateY(-50%);white-space:nowrap;line-height:1;}
+.hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(245,197,24,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(245,197,24,0.03) 1px,transparent 1px);background-size:60px 60px;animation:gridMove 20s linear infinite;}
+@keyframes gridMove{from{background-position:0 0;}to{background-position:60px 60px;}}
+.hero-eyebrow{font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--orange);text-transform:uppercase;letter-spacing:4px;margin-bottom:20px;position:relative;animation:fadeUp .6s ease both;}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,10vw,7.5rem);line-height:.95;letter-spacing:2px;margin-bottom:24px;position:relative;animation:fadeUp .6s .1s ease both;}
+.hero-title .line2{color:var(--gold);text-shadow:0 0 60px rgba(245,197,24,0.2);display:block;}
+.hero-sub{max-width:540px;font-size:clamp(0.95rem,2.5vw,1.1rem);color:var(--muted);line-height:1.75;margin-bottom:40px;position:relative;animation:fadeUp .6s .2s ease both;}
+.hero-sub strong{color:var(--text);}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;position:relative;animation:fadeUp .6s .3s ease both;}
+.btn-wa-hero{background:var(--wa);color:#fff;border:none;padding:16px 32px;border-radius:4px;font-family:'Outfit',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;text-decoration:none;display:flex;align-items:center;gap:10px;transition:all .25s;box-shadow:0 0 40px rgba(37,211,102,0.25);}
+.btn-wa-hero:hover{transform:translateY(-3px);box-shadow:0 8px 40px rgba(37,211,102,0.35);}
+.btn-outline{background:transparent;color:var(--text);border:1px solid var(--border);padding:16px 28px;border-radius:4px;font-family:'Outfit',sans-serif;font-size:1rem;font-weight:500;cursor:pointer;text-decoration:none;transition:border-color .2s,color .2s;}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);}
+.scroll-hint{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;animation:fadeUp .6s .6s ease both;}
+.scroll-arrow{width:1px;height:40px;background:linear-gradient(to bottom,var(--muted),transparent);animation:scrollPulse 1.8s ease infinite;}
+@keyframes scrollPulse{0%,100%{opacity:.3;transform:scaleY(.7);}50%{opacity:1;transform:scaleY(1);}}
+
+/* ── PROOF BAR ── */
+.proof-bar{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:18px 0;overflow:hidden;background:var(--surface);}
+.proof-track{display:flex;gap:60px;align-items:center;width:max-content;animation:marquee 25s linear infinite;}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.proof-item{display:flex;align-items:center;gap:10px;font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:2px;white-space:nowrap;flex-shrink:0;}
+.proof-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
+.proof-dot.gold{background:var(--gold);}
+.proof-dot.orange{background:var(--orange);}
+.proof-dot.green{background:var(--green);}
+.proof-dot.blue{background:var(--blue);}
+.proof-dot.purple{background:var(--purple);}
+
+/* ── SECTIONS ── */
+.section{padding:80px 20px;}
+.container{max-width:920px;margin:0 auto;}
+.sec-label{font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--orange);text-transform:uppercase;letter-spacing:4px;margin-bottom:12px;}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,6vw,3.5rem);letter-spacing:2px;line-height:1;margin-bottom:16px;}
+.sec-sub{font-size:0.95rem;color:var(--muted);line-height:1.75;max-width:540px;margin-bottom:48px;}
+
+/* ── PROBLEM ── */
+.problem-section{background:var(--surface);}
+.prob-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;}
+.prob-card{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:22px;transition:border-color .2s,transform .2s;}
+.prob-card:hover{border-color:var(--orange);transform:translateY(-4px);}
+.prob-icon{font-size:1.8rem;margin-bottom:10px;}
+.prob-card h3{font-size:.95rem;font-weight:700;margin-bottom:6px;}
+.prob-card p{font-size:0.81rem;color:var(--muted);line-height:1.6;}
+
+/* ── CATEGORY TABS ── */
+.cat-tabs-wrap{display:flex;overflow-x:auto;gap:8px;padding-bottom:4px;margin-bottom:36px;scrollbar-width:none;}
+.cat-tabs-wrap::-webkit-scrollbar{display:none;}
+.cat-tab{flex-shrink:0;padding:9px 20px;border-radius:100px;border:1px solid var(--border);background:transparent;font-family:'Outfit',sans-serif;font-size:0.8rem;font-weight:600;cursor:pointer;color:var(--muted);transition:all .2s;white-space:nowrap;}
+.cat-tab.active,.cat-tab:hover{background:var(--gold);border-color:var(--gold);color:var(--bg);}
+
+/* ── CATEGORY SECTIONS ── */
+.cat-section{display:none;}
+.cat-section.active{display:block;animation:fadeIn .35s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+.cat-intro{display:flex;align-items:center;gap:14px;padding:16px 20px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;margin-bottom:20px;}
+.cat-intro-emoji{font-size:2rem;}
+.cat-intro h3{font-size:.95rem;font-weight:700;margin-bottom:3px;}
+.cat-intro p{font-size:.78rem;color:var(--muted);line-height:1.5;}
+
+/* ── SERVICE CARD ── */
+.services-grid{display:grid;gap:16px;}
+.service-card{background:var(--surface);border:1px solid var(--border);border-left:3px solid transparent;border-radius:6px;padding:26px 26px 26px 30px;position:relative;overflow:hidden;cursor:pointer;text-decoration:none;display:block;transition:border-color .25s,transform .25s,box-shadow .25s;}
+.service-card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(245,197,24,0.03),transparent);opacity:0;transition:opacity .25s;}
+.service-card:hover{border-color:var(--gold);transform:translateX(6px);box-shadow:-6px 0 0 var(--gold);text-decoration:none;}
+.service-card:hover::after{opacity:1;}
+
+/* accent colors per category */
+.service-card.cat-visib{border-left-color:var(--orange);}
+.service-card.cat-web{border-left-color:var(--blue);}
+.service-card.cat-social{border-left-color:var(--gold);}
+.service-card.cat-excel{border-left-color:var(--green);}
+.service-card.cat-visuels{border-left-color:var(--purple);}
+
+.sc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:14px;flex-wrap:wrap;}
+.sc-icon-title{display:flex;align-items:center;gap:12px;}
+.sc-emoji{font-size:1.7rem;flex-shrink:0;}
+.sc-name{font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:2px;}
+.sc-tagline{font-size:0.75rem;color:var(--muted);}
+.sc-badge{font-family:'DM Mono',monospace;font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;padding:4px 10px;border-radius:2px;white-space:nowrap;flex-shrink:0;align-self:flex-start;}
+
+.badge-hot{background:rgba(255,107,43,0.12);color:var(--orange);border:1px solid var(--orange);}
+.badge-warm{background:rgba(245,197,24,0.08);color:var(--gold);border:1px solid var(--gold2);}
+.badge-cool{background:rgba(45,206,110,0.08);color:var(--green);border:1px solid var(--green);}
+.badge-blue{background:rgba(78,168,222,0.1);color:var(--blue);border:1px solid var(--blue);}
+.badge-purple{background:rgba(180,142,255,0.1);color:var(--purple);border:1px solid var(--purple);}
+
+.sc-desc{font-size:0.86rem;color:var(--muted);line-height:1.7;margin-bottom:18px;}
+.sc-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.sc-features{display:flex;gap:8px;flex-wrap:wrap;}
+.sc-feat{font-family:'DM Mono',monospace;font-size:0.62rem;background:var(--surface2);border:1px solid var(--border);border-radius:2px;padding:3px 9px;color:var(--muted);}
+.sc-cta{background:var(--wa);color:#fff;border:none;padding:10px 20px;border-radius:4px;font-family:'Outfit',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:7px;transition:all .2s;text-decoration:none;flex-shrink:0;}
+.sc-cta:hover{opacity:.9;transform:scale(1.03);}
+
+/* ── HOW IT WORKS ── */
+.how-section{background:var(--surface);}
+.steps-list{display:grid;gap:0;position:relative;}
+.steps-list::before{content:'';position:absolute;left:28px;top:40px;bottom:40px;width:1px;background:linear-gradient(to bottom,var(--gold),var(--border));}
+@media(max-width:500px){.steps-list::before{left:20px;}}
+.how-step{display:flex;gap:24px;align-items:flex-start;padding:28px 0;border-bottom:1px solid var(--border);opacity:0;transform:translateX(-20px);transition:opacity .5s,transform .5s;}
+.how-step:last-child{border-bottom:none;}
+.how-step.visible{opacity:1;transform:translateX(0);}
+.how-num{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--gold);width:56px;height:56px;border:1px solid var(--gold2);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;letter-spacing:1px;background:var(--bg);position:relative;z-index:1;}
+.how-body h3{font-size:1rem;font-weight:700;margin-bottom:6px;}
+.how-body p{font-size:0.84rem;color:var(--muted);line-height:1.7;}
+
+/* ── TRUST ── */
+.trust-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-bottom:48px;}
+.trust-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:22px;text-align:center;}
+.trust-num{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--gold);letter-spacing:2px;line-height:1;margin-bottom:6px;text-shadow:0 0 30px rgba(245,197,24,0.2);}
+.trust-label{font-size:0.78rem;color:var(--muted);line-height:1.5;}
+
+/* ── CTA FINAL ── */
+.cta-section{text-align:center;padding:80px 20px 100px;position:relative;overflow:hidden;}
+.cta-section::before{content:'';position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(245,197,24,0.06) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
+.cta-big{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,8vw,5.5rem);letter-spacing:2px;line-height:.95;margin-bottom:24px;}
+.cta-big .highlight{color:var(--gold);}
+.cta-sub{font-size:1rem;color:var(--muted);max-width:440px;margin:0 auto 40px;line-height:1.75;}
+.btn-wa-big{display:inline-flex;align-items:center;gap:12px;background:var(--wa);color:#fff;border:none;padding:20px 44px;border-radius:4px;font-family:'Outfit',sans-serif;font-size:1.1rem;font-weight:700;cursor:pointer;text-decoration:none;transition:all .25s;box-shadow:0 0 60px rgba(37,211,102,0.2);}
+.btn-wa-big:hover{transform:translateY(-4px);box-shadow:0 12px 60px rgba(37,211,102,0.35);}
+.wa-icon{width:20px;height:20px;fill:#fff;flex-shrink:0;}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--border);padding:28px 20px;text-align:center;font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--muted);letter-spacing:1px;}
+footer strong{color:var(--gold);}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .6s,transform .6s;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal:nth-child(2){transition-delay:.08s;}
+.reveal:nth-child(3){transition-delay:.16s;}
+.reveal:nth-child(4){transition-delay:.24s;}
+.reveal:nth-child(5){transition-delay:.32s;}
+.reveal:nth-child(6){transition-delay:.40s;}
+
+/* mobile */
+@media(max-width:600px){
+  nav{padding:14px 16px;}
+  .nav-logo{font-size:1.4rem;}
+  .section{padding:56px 16px;}
+  .service-card{padding:20px 18px 20px 24px;}
+  .sc-footer{flex-direction:column;align-items:flex-start;}
+  .sc-cta{width:100%;justify-content:center;}
+}
+
+/* WA SVG path reuse */
+.wa-path{d:path("M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z");}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Digital<span>Yop</span></div>
+  <div class="nav-right">
+    <a class="nav-services-btn" href="#services">Nos services</a>
+    <a class="nav-cta" href="https://wa.me/2250000000000?text=Bonjour%20DigitalYop%20!%20Je%20voudrais%20en%20savoir%20plus%20sur%20vos%20services.">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      Nous contacter
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-text">DIGITAL</div>
+  <div class="hero-eyebrow">Agence digitale · Yopougon · Abidjan</div>
+  <h1 class="hero-title">
+    Votre business<br>
+    <span class="line2">mérite d'être vu.</span>
+  </h1>
+  <p class="hero-sub">
+    Visibilité en ligne, sites web, pages de commande, outils de gestion.<br>
+    <strong>On s'occupe du digital. Vous gérez votre activité.</strong>
+  </p>
+  <div class="hero-actions">
+    <a class="btn-wa-hero" href="https://wa.me/2250000000000?text=Bonjour%20DigitalYop%20!%20Je%20voudrais%20un%20diagnostic%20gratuit%20de%20ma%20pr%C3%A9sence%20en%20ligne.%20Pouvez-vous%20m%27aider%20?">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      Diagnostic gratuit — Gratuit
+    </a>
+    <a class="btn-outline" href="#services">Voir les services</a>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-arrow"></div>
+    Défiler
+  </div>
+</section>
+
+<!-- PROOF BAR -->
+<div class="proof-bar">
+  <div class="proof-track">
+    <div class="proof-item"><div class="proof-dot orange"></div>Google Maps</div>
+    <div class="proof-item"><div class="proof-dot blue"></div>Sites Web Pro</div>
+    <div class="proof-item"><div class="proof-dot gold"></div>Page de Commande WA</div>
+    <div class="proof-item"><div class="proof-dot green"></div>Tableaux Excel</div>
+    <div class="proof-item"><div class="proof-dot gold"></div>Réseaux Sociaux</div>
+    <div class="proof-item"><div class="proof-dot purple"></div>Visuels & Flyers</div>
+    <div class="proof-item"><div class="proof-dot orange"></div>Menu WhatsApp</div>
+    <div class="proof-item"><div class="proof-dot blue"></div>Budget Familial</div>
+    <div class="proof-item"><div class="proof-dot orange"></div>Google Maps</div>
+    <div class="proof-item"><div class="proof-dot blue"></div>Sites Web Pro</div>
+    <div class="proof-item"><div class="proof-dot gold"></div>Page de Commande WA</div>
+    <div class="proof-item"><div class="proof-dot green"></div>Tableaux Excel</div>
+    <div class="proof-item"><div class="proof-dot gold"></div>Réseaux Sociaux</div>
+    <div class="proof-item"><div class="proof-dot purple"></div>Visuels & Flyers</div>
+    <div class="proof-item"><div class="proof-dot orange"></div>Menu WhatsApp</div>
+    <div class="proof-item"><div class="proof-dot blue"></div>Budget Familial</div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="section problem-section">
+  <div class="container">
+    <div class="sec-label reveal">Le problème</div>
+    <h2 class="sec-title reveal">Votre activité perd<br>des clients chaque jour.</h2>
+    <p class="sec-sub reveal">Invisible en ligne, pas d'outil pour gérer vos commandes, vos comptes dans des cahiers... Le digital peut tout changer, sans être compliqué.</p>
+    <div class="prob-grid">
+      <div class="prob-card reveal">
+        <div class="prob-icon">🔍</div>
+        <h3>Invisible sur Google</h3>
+        <p>Les gens cherchent sur leur téléphone. Sans fiche ni site, ils ne vous trouvent jamais et vont chez le voisin.</p>
+      </div>
+      <div class="prob-card reveal">
+        <div class="prob-icon">📵</div>
+        <h3>Commandes désorganisées</h3>
+        <p>WhatsApp déborde de messages, les commandes se perdent, les erreurs arrivent. Il faut un système simple.</p>
+      </div>
+      <div class="prob-card reveal">
+        <div class="prob-icon">📒</div>
+        <h3>Gestion dans un cahier</h3>
+        <p>Stock, dépenses, bénéfices, budget familial — tout dans un cahier. Impossible de voir clairement où va l'argent.</p>
+      </div>
+      <div class="prob-card reveal">
+        <div class="prob-icon">📸</div>
+        <h3>Image pas professionnelle</h3>
+        <p>Pas de visuels, pas de page active, des photos floues. Les clients jugent votre sérieux en 3 secondes en ligne.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="sec-label reveal">Ce qu'on fait pour vous</div>
+    <h2 class="sec-title reveal">Tous nos services</h2>
+    <p class="sec-sub reveal">Cliquez sur le service qui vous intéresse — WhatsApp s'ouvre avec un message déjà prêt pour vous.</p>
+
+    <!-- CATEGORY TABS -->
+    <div class="cat-tabs-wrap reveal">
+      <button class="cat-tab active" onclick="showCat('visib',this)">🗺️ Visibilité</button>
+      <button class="cat-tab" onclick="showCat('web',this)">🌐 Sites Web</button>
+      <button class="cat-tab" onclick="showCat('commande',this)">🛒 Commandes</button>
+      <button class="cat-tab" onclick="showCat('excel',this)">📊 Tableaux Excel</button>
+      <button class="cat-tab" onclick="showCat('social',this)">📸 Réseaux & Visuels</button>
+    </div>
+
+    <!-- ═══ CAT : VISIBILITÉ ═══ -->
+    <div class="cat-section active" id="cat-visib">
+      <div class="cat-intro">
+        <div class="cat-intro-emoji">🗺️</div>
+        <div>
+          <h3>Visibilité en ligne</h3>
+          <p>Apparaissez sur Google Maps et partout où vos clients vous cherchent. Résultat visible le jour même.</p>
+        </div>
+      </div>
+      <div class="services-grid">
+
+        <a class="service-card cat-visib"
+           href="https://wa.me/2250000000000?text=Bonjour%20DigitalYop%20!%20%F0%9F%97%BA%EF%B8%8F%20Je%20suis%20int%C3%A9ress%C3%A9(e)%20par%20la%20cr%C3%A9ation%20de%20ma%20fiche%20Google%20Business.%20Mon%20commerce%20n%E2%80%99appara%C3%AEt%20pas%20(ou%20mal)%20sur%20Google%20Maps%20et%20je%20voudrais%20corriger%20%C3%A7a.%20Pouvez-vous%20m%E2%80%99aider%20%3F">
+          <div class="sc-top">
+            <div class="sc-icon-title">
+              <div class="sc-emoji">🗺️</div>
+              <div>
+                <div class="sc-name">Fiche Google Business</div>
+                <div class="sc-tagline">Apparaître sur Google Maps en 30 minutes</div>
+              </div>
+            </div>
+            <div class="sc-badge badge-hot">Le plus demandé</div>
+          </div>
+          <p class="sc-desc">Votre commerce créé et optimisé sur Google Maps avec photos, horaires, adresse et description. Les clients vous trouvent dès aujourd'hui quand ils cherchent près de chez eux.</p>
+          <div class="sc-footer">
+            <div class="sc-features">
+              <span class="sc-feat">✓ Photos incluses</span>
+              <span class="sc-feat">✓ Horaires & adresse</span>
+              <span class="sc-feat">✓ Fait devant vous</span>
+            </div>
+            <div class="sc-cta"><svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>Je veux ça</div>
+          </div>
+        </a>
+
+        <a class="service-card cat-visib"
+           href="https://wa.me/2250000000000?text=Bonjour%20DigitalYop%20!%20%F0%9F%93%B1%20Je%20voudrais%20un%20menu%20WhatsApp%20professionnel%20pour%20mon%20restaurant.%20Mes%20clients%20me%20demandent%20le%20menu%20en%20permanence%20et%20je%20voudrais%20quelque%20chose%20de%20propre%20%C3%A0%20partager.%20Pouvez-vous%20m%E2%80%99aider%20%3F">
+          <div class="sc-top">
+            <div class="sc-icon-title">
+              <div class="sc-emoji">📱</div>
+              <div>
+                <div class="sc-name">Menu WhatsApp PDF</div>
+                <div class="sc-tagline">Fini les photos de menu floues</div>
+              </div>
+            </div>
+            <div class="sc-badge badge-hot">Très demandé</div>
+          </div>
+          <p class="sc-desc">Un menu PDF ou lien web élégant avec vos plats, prix et photos. Partageable en un clic sur WhatsApp. Vos clients ont toutes les infos avant même d'appeler.</p>
+          <div class="sc-footer">
+            <div class="sc-features">
+              <span class="sc-feat">✓ Design professionnel</span>
+              <span class="sc-feat">✓ Partageable facilement</span>
+              <span class="sc-feat">✓ Livré en 2h</span>
+            </div>
+            <div class="sc-cta"><svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>Je veux ça</div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- ═══ CAT : SITES WEB ═══ -->
+    <div class="cat-section" id="cat-web">
+      <div class="cat-intro">
+        <div class="cat-intro-emoji">🌐</div>
+        <div>
+          <h3>Sites Web Professionnels</h3>
+          <p>Une présence en ligne crédible qui inspire confiance et attire des clients même quand vous dormez.</p>
+        </div>
+      </div>
+      <div class="services-grid">
+
+        <a class="service-card cat-web"
+           href="https://wa.me/2250000000000?text=Bonjour%20DigitalYop%20!%20%F0%9F%8C%90%20Je%20voudrais%20un%20mini-site%20web%20d%27une%20page%20pour%20mon%20commerce%20ou%20restaurant.%20Je%20veux%20%C3%AAtre%20cr%C3%A9dible%20en%20ligne%20et%20que%20les%20clients%20puissent%20me%20trouver%20facilement.%20Pouvez-vous%20m%E2%80%99aider%20%3F">
+          <div class="sc-top">
+            <div class="sc-icon-title">
+              <div class="sc-emoji">🌐</div>
+              <div>
+                <div class="sc-name">Mini-Site Une Page</div>
+                <div class="sc-tagline">Présentation, menu, contact, réservation</div>
+              </div>
+            </div>
+            <div class="sc-badge badge-blue">Populaire</div>
+          </div>
+          <p class="sc-desc">Un site web élégant, mobile, avec votre présentation, galerie photos, menu ou catalogue, et un bouton de contact direct WhatsApp. Parfait pour les restaurants, salons, boutiques et prestataires.</p>
+          <div class="sc-footer">
+            <div class="sc-features">
+              <span class="sc-feat">✓ Mobile first</span>
+              <span class="sc-feat">✓ Hébergement gratuit</span>
+              <span class="sc-feat">✓ Livré en 3–4 jours</span>
+            </div>
+            <div class="sc-cta"><svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>Je veux ça</div>
+          </div>
+        </a>
+
+        <a class="service-card cat-web"
+           href="https://wa.me/2250000000000?text=Bonjour%20DigitalYop%20!%20%F0%9F%8C%9F%20Je%20voudrais%20un%20site%20web%20professionnel%20complet%20pour%20mon%20entreprise.%20J%E2%80%99ai%20besoin%20de%20plusieurs%20pages%2C%20d%E2%80%99un%20catalogue%20ou%20portfolio%20et%20d%E2%80%99un%20formulaire%20de%20contact.%20Pouvez-vous%20m%E2%80%99aider%20%3F">
+          <div class="sc-top">
+            <div class="sc-icon-title">
+              <div class="sc-emoji">🌟</div>
+              <div>
+                <div class="sc-name">Site Web Complet Multi-pages</div>
+                <div class="sc-tagline">Accueil · Services · Portfolio · Contact</div>
+              </div>
+            </div>
+            <div class="sc-badge badge-blue">Premium</div>
+          </div>
+          <p class="sc-desc">Un site professionnel multi-pages pour les entreprises qui veulent une image sérieuse : présentation complète, catalogue ou portfolio, témoignages clients, formulaire de contact et intégration WhatsApp.</p>
+          <div class="sc-footer">
+            <div class="sc-features">
+              <span class="sc-feat">✓ Plusieurs pages</span>
+              <span class="sc-feat">✓ SEO de base inclus</span>
+              <span class="sc-feat">✓ Livré en 5–7 jours</span>
+            </div>
+            <div class="sc-cta"><svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>Je veux ça</div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- ═══ CAT : COMMANDES ═══ -->
+    <div class="cat-section" id="cat-commande">
+      <div class="cat-intro">
+        <div class="cat-intro-emoji">🛒</div>
+        <div>
+          <h3>Pages de Commande WhatsApp</h3>
+          <p>Transformez votre WhatsApp en vrai système de commande. Plus d'erreurs, plus de perte de clients.</p>
+        </div>
+      </div>
+      <div class="services-grid">
+
+        <a class="service-card cat-commande"
+           href="https://wa.me/2250000000000?text=Bonjour%20DigitalYop%20!%20%F0%9F%9B%92%20Je%20voudrais%20une%20page%20de%20commande%20WhatsApp%20pour%20mon%20commerce.%20Mes%20clients%20commandent%20en%20d%C3%A9sordre%20par%20WhatsApp%20et%20je%20perds%20des%20commandes.%20Je%20veux%20quelque%20chose%20de%20structur%C3%A9.%20Pouvez-vous%20m%E2%80%99aider%20%3F">
+          <div class="sc-top">
+            <div class="sc-icon-title">
+              <div class="sc-emoji">🛒</div>
+              <div>
+                <div class="sc-name">Page de Commande WhatsApp</div>
+                <div class="sc-tagline">Catalogue cliquable → commande automatique</div>
+              </div>
+            </div>
+            <div class="sc-badge badge-warm">Nouveau</div>
+          </div>
+          <p class="sc-desc">Vos clients choisissent leurs produits sur une page web simple, cliquent sur "Commander" et WhatsApp s'ouvre avec leur commande déjà rédigée. Vous recevez des commandes claires, structurées, sans erreur. Idéal pour restaurants, traiteurs, boutiques.</p>
+          <div class="sc-footer">
+            <div class="sc-features">
+              <span class="sc-feat">✓ Catalogue avec photos</span>
+              <span class="sc-feat">✓ Message WA automatique</span>
+              <span class="sc-feat">✓ Zéro application à installer</span>
+            </div>
+            <div class="sc-cta"><svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>Je veux ça</div>
+          </div>
+        </a>
+
+        <a class="service-card cat-commande"
+           href="https://wa.me/2250000000000?text=Bonjour%20DigitalYop%20!%20%F0%9F%93%A6%20Je%20voudrais%20un%20bon%20de%20commande%20WhatsApp%20pour%20mon%20n%C9%A1%C3%A9goce.%20Je%20veux%20que%20mes%20clients%20grossistes%20ou%20d%C3%A9taillants%20puissent%20commander%20facilement%20et%20que%20je%20re%C3%A7oive%20les%20commandes%20bien%20organis%C3%A9es.%20Pouvez-vous%20m%E2%80%99aider%20%3F">
+          <div class="sc-top">
+            <div class="sc-icon-title">
+              <div class="sc-emoji">📦</div>
+              <div>
+                <div class="sc-name">Bon de Commande Négoce</div>
+                <div class="sc-tagline">Pour grossistes, détaillants & revendeurs</div>
+              </div>
+            </div>
+            <div class="sc-badge badge-warm">Pro</div>
+          </div>
+          <p class="sc-desc">Formulaire de commande adapté au négoce : choix des produits, quantités, unités, livraison. Le client envoie sa commande complète sur WhatsApp en un clic. Vous gérez mieux, vous livrez mieux.</p>
+          <div class="sc-footer">
+            <div class="sc-features">
+              <span class="sc-feat">✓ Quantités & unités</span>
+              <span class="sc-feat">✓ Calcul automatique</span>
+              <span class="sc-feat">✓ Adapté à votre catalogue</span>
+            </div>
+            <div class="sc-cta"><svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>Je veux ça</div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- ═══ CAT : EXCEL ═══ -->
+    <div class="cat-section" id="cat-excel">
+      <div class="cat-intro">
+        <div class="cat-intro-emoji">📊</div>
+        <div>
+          <h3>Tableaux Excel sur mesure</h3>
+          <p>Fini les cahiers et les calculs à la main. Des outils simples qui calculent tout automatiquement pour vous.</p>
+        </div>
+      </div>
+      <div class="services-grid">
+
+        <a class="service-card cat-excel"
+           href="https://wa.me/2250000000000?text=Bonjour%20DigitalYop%20!%20%F0%9F%93%8A%20Je%20voudrais%20un%20tableau%20Excel%20pour%20g%C3%A9rer%20mon%20commerce%20%3A%20stock%2C%20ventes%2C%20d%C3%A9penses%20et%20b%C3%A9n%C3%A9fices.%20En%20ce%20moment%20tout%20est%20dans%20un%20cahier%20et%20c%E2%80%99est%20difficile%20%C3%A0%20suivre.%20Pouvez-vous%20m%E2%80%99aider%20%3F">
+          <div class="sc-top">
+            <div class="sc-icon-title">
+              <div class="sc-emoji">🏪</div>
+              <div>
+                <div class="sc-name">Tableau de Gestion Commerce</div>
+                <div class="sc-tagline">Stock · Ventes · Dépenses · Bénéfices</div>
+              </div>
+            </div>
+            <div class="sc-badge badge-cool">Très utile</div>
+          </div>
+          <p class="sc-desc">Un tableau Excel complet pour suivre votre stock, enregistrer vos ventes quotidiennes, gérer vos dépenses et voir vos bénéfices en temps réel. Tableau simple, coloré, facile à utiliser même sans formation.</p>
+          <div class="sc-footer">
+            <div class="sc-features">
+              <span class="sc-feat">✓ Calculs automatiques</span>
+              <span class="sc-feat">✓ Graphiques inclus</span>
+              <span class="sc-feat">✓ Formation d'utilisation</span>
+            </div>
+            <div class="sc-cta"><svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>Je veux ça</div>
+          </div>
+        </a>
+
+        <a class="service-card cat-excel"
+           href="https://wa.me/2250000000000?text=Bonjour%20DigitalYop%20!%20%F0%9F%8F%A0%20Je%20voudrais%20un%20tableau%20Excel%20pour%20g%C3%A9rer%20le%20budget%20de%20ma%20famille.%20Je%20veux%20suivre%20mes%20revenus%2C%20mes%20d%C3%A9penses%20du%20mois%20(alimentation%2C%20loyer%2C%20%C3%A9cole%2C%20sant%C3%A9...)%20et%20ce%20qui%20me%20reste.%20Pouvez-vous%20m%E2%80%99aider%20%3F">
+          <div class="sc-top">
+            <div class="sc-icon-title">
+              <div class="sc-emoji">🏠</div>
+              <div>
+                <div class="sc-name">Tableau Budget Familial</div>
+                <div class="sc-tagline">Revenus · Dépenses · Épargne · Objectifs</div>
+              </div>
+            </div>
+            <div class="sc-badge badge-cool">Pour tous</div>
+          </div>
+          <p class="sc-desc">Un tableau mensuel pour toute la famille : revenus du ménage, dépenses par catégorie (alimentation, loyer, école, santé, transport), calcul automatique de ce qui reste et suivi de votre épargne mois par mois.</p>
+          <div class="sc-footer">
+            <div class="sc-features">
+              <span class="sc-feat">✓ Catégories personnalisées</span>
+              <span class="sc-feat">✓ Bilan mensuel visuel</span>
+              <span class="sc-feat">✓ Suivi sur 12 mois</span>
+            </div>
+            <div class="sc-cta"><svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>Je veux ça</div>
+          </div>
+        </a>
+
+        <a class="service-card cat-excel"
+           href="https://wa.me/2250000000000?text=Bonjour%20DigitalYop%20!%20%F0%9F%93%8B%20Je%20voudrais%20un%20tableau%20Excel%20personnalis%C3%A9%20pour%20mon%20activit%C3%A9.%20J%E2%80%99ai%20un%20besoin%20sp%C3%A9cifique%20que%20je%20voudrais%20vous%20expliquer.%20Pouvez-vous%20m%E2%80%99aider%20%3F">
+          <div class="sc-top">
+            <div class="sc-icon-title">
+              <div class="sc-emoji">📋</div>
+              <div>
+                <div class="sc-name">Tableau Sur Mesure</div>
+                <div class="sc-tagline">Votre besoin spécifique, votre outil</div>
+              </div>
+            </div>
+            <div class="sc-badge badge-cool">Personnalisé</div>
+          </div>
+          <p class="sc-desc">Vous avez un besoin spécifique : suivi de crédit, gestion de tontine, paie du personnel, suivi de chantier, agenda de réservations... On crée le tableau Excel exactement adapté à votre situation.</p>
+          <div class="sc-footer">
+            <div class="sc-features">
+              <span class="sc-feat">✓ 100% sur mesure</span>
+              <span class="sc-feat">✓ Formules automatiques</span>
+              <span class="sc-feat">✓ Formation incluse</span>
+            </div>
+            <div class="sc-cta"><svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>Je veux ça</div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- ═══ CAT : RÉSEAUX & VISUELS ═══ -->
+    <div class="cat-section" id="cat-social">
+      <div class="cat-intro">
+        <div class="cat-intro-emoji">📸</div>
+        <div>
+          <h3>Réseaux Sociaux & Visuels</h3>
+          <p>Une image professionnelle sur Instagram, Facebook et WhatsApp. Des visuels qui attirent l'œil et donnent envie.</p>
+        </div>
+      </div>
+      <div class="services-grid">
+
+        <a class="service-card cat-social"
+           href="https://wa.me/2250000000000?text=Bonjour%20DigitalYop%20!%20%F0%9F%93%B8%20Je%20voudrais%20que%20quelqu%E2%80%99un%20g%C3%A8re%20mon%20Instagram%20et%20Facebook%20pour%20mon%20commerce.%20Ma%20page%20est%20inactive%20et%20je%20n%E2%80%99ai%20pas%20le%20temps%20de%20poster%20r%C3%A9guli%C3%A8rement.%20Pouvez-vous%20m%E2%80%99aider%20%3F">
+          <div class="sc-top">
+            <div class="sc-icon-title">
+              <div class="sc-emoji">📸</div>
+              <div>
+                <div class="sc-name">Gestion Réseaux Sociaux</div>
+                <div class="sc-tagline">Instagram & Facebook actifs chaque semaine</div>
+              </div>
+            </div>
+            <div class="sc-badge badge-warm">Mensuel</div>
+          </div>
+          <p class="sc-desc">On s'occupe de votre Instagram et Facebook : publications régulières de vos produits ou plats, stories promotionnelles, réponse aux commentaires. Vous vous concentrez sur votre activité, on gère votre image.</p>
+          <div class="sc-footer">
+            <div class="sc-features">
+              <span class="sc-feat">✓ 3 posts/semaine</span>
+              <span class="sc-feat">✓ Stories & Reels</span>
+              <span class="sc-feat">✓ Rapport mensuel</span>
+            </div>
+            <div class="sc-cta"><svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>Je veux ça</div>
+          </div>
+        </a>
+
+        <a class="service-card cat-social"
+           href="https://wa.me/2250000000000?text=Bonjour%20DigitalYop%20!%20%F0%9F%96%A8%EF%B8%8F%20J%E2%80%99ai%20besoin%20de%20visuels%20et%20flyers%20professionnels%20pour%20promouvoir%20mon%20commerce%20sur%20WhatsApp%20et%20les%20r%C3%A9seaux.%20Annonces%2C%20promotions%2C%20nouveaut%C3%A9s.%20Pouvez-vous%20cr%C3%A9er%20%C3%A7a%20pour%20moi%20%3F">
+          <div class="sc-top">
+            <div class="sc-icon-title">
+              <div class="sc-emoji">🎨</div>
+              <div>
+                <div class="sc-name">Visuels & Flyers Promo</div>
+                <div class="sc-tagline">Designs qui attirent l'œil en 30 secondes</div>
+              </div>
+            </div>
+            <div class="sc-badge badge-purple">Rapide</div>
+          </div>
+          <p class="sc-desc">Flyers pour vos promotions, annonces de nouveautés, visuels pour événements spéciaux. Designs professionnels à vos couleurs, prêts à partager sur WhatsApp, Instagram et Facebook en moins d'une heure.</p>
+          <div class="sc-footer">
+            <div class="sc-features">
+              <span class="sc-feat">✓ Vos couleurs & logo</span>
+              <span class="sc-feat">✓ Formats WA + Insta</span>
+              <span class="sc-feat">✓ Livraison en 1h</span>
+            </div>
+            <div class="sc-cta"><svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>Je veux ça</div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section how-section">
+  <div class="container">
+    <div class="sec-label reveal">Comment ça marche</div>
+    <h2 class="sec-title reveal">Simple comme<br>bonjour.</h2>
+    <p class="sec-sub reveal">Pas de complication. Résultat visible rapidement. Paiement seulement quand vous êtes satisfait.</p>
+    <div class="steps-list">
+      <div class="how-step">
+        <div class="how-num">01</div>
+        <div class="how-body">
+          <h3>Vous cliquez sur le service qui vous intéresse</h3>
+          <p>Un message WhatsApp est déjà préparé. Vous l'envoyez en un clic et on vous répond en moins d'une heure.</p>
+        </div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">02</div>
+        <div class="how-body">
+          <h3>On analyse votre situation gratuitement</h3>
+          <p>On regarde ensemble ce qui manque ou ce qui peut être amélioré. Zéro engagement de votre côté à ce stade.</p>
+        </div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">03</div>
+        <div class="how-body">
+          <h3>On travaille devant vous ou à distance</h3>
+          <p>Vous voyez chaque étape. Rien ne se fait dans votre dos. Vous validez le résultat avant de payer.</p>
+        </div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">04</div>
+        <div class="how-body">
+          <h3>Paiement après résultat — Wave ou Orange Money</h3>
+          <p>Vous payez uniquement quand le travail est fait et que vous êtes content. Paiement simple par mobile money.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="section">
+  <div class="container">
+    <div class="sec-label reveal">Pourquoi nous choisir</div>
+    <h2 class="sec-title reveal">Local. Rapide.<br>Honnête.</h2>
+    <div class="trust-grid">
+      <div class="trust-card reveal">
+        <div class="trust-num">30'</div>
+        <div class="trust-label">Pour créer une fiche Google complète devant vous</div>
+      </div>
+      <div class="trust-card reveal">
+        <div class="trust-num">0 F</div>
+        <div class="trust-label">Diagnostic offert — sans engagement</div>
+      </div>
+      <div class="trust-card reveal">
+        <div class="trust-num">100%</div>
+        <div class="trust-label">Paiement après résultat, satisfait ou on repart</div>
+      </div>
+      <div class="trust-card reveal">
+        <div class="trust-num">8</div>
+        <div class="trust-label">Services disponibles pour tous types de commerces</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-section">
+  <div class="container">
+    <p class="sec-label" style="margin-bottom:16px;">Prêt à commencer ?</p>
+    <h2 class="cta-big reveal">
+      Un message suffit<br>
+      <span class="highlight">pour tout changer.</span>
+    </h2>
+    <p class="cta-sub reveal">Le diagnostic est gratuit. La conversation ne vous engage à rien. Contactez-nous maintenant.</p>
+    <a class="btn-wa-big reveal"
+       href="https://wa.me/2250000000000?text=Bonjour%20DigitalYop%20!%20Je%20voudrais%20un%20diagnostic%20gratuit%20pour%20mon%20commerce.%20Pouvez-vous%20m%E2%80%99aider%20%3F">
+      <svg class="wa-icon" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      Démarrer sur WhatsApp
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <strong>DigitalYop</strong> · Solutions digitales · Yopougon, Abidjan · 2026
+  </div>
+</footer>
+
+<script>
+// Category tabs
+function showCat(id, btn) {
+  document.querySelectorAll('.cat-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('cat-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// Scroll reveal
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold: 0.1});
+document.querySelectorAll('.reveal, .how-step').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

@@ -62,15 +62,37 @@
       <img src="/logo-dy.svg" alt="" width="36" height="36">
       <span>Digital<b>Yop</b></span>
     </a>
-    <nav class="nav-links" aria-label="Navigation principale">
-      <a href="/">Accueil</a>
-      <a href="/google-maps-abidjan/" aria-current="page">Google Maps</a>
-      <a href="/creation-site-web-abidjan/">Sites web</a>
-      <a href="#faq">Questions</a>
+    <div class="nav-right">
+      <a class="btn btn-wa nav-cta" href="https://wa.me/2250565861179?text=Bonjour%20DigitalYop%20%21%20Je%20voudrais%20en%20savoir%20plus%20sur%20vos%20services." target="_blank" rel="noopener">
+        <svg class="i i-fill" aria-hidden="true"><use href="#i-wa"/></svg>Nous contacter
+      </a>
+      <button class="burger-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu">
+        <span class="burger" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span>Menu</span>
+      </button>
+    </div>
+  </div>
+  <div class="menu" id="menu" hidden>
+    <nav class="menu-inner" aria-label="Menu principal">
+      <p class="menu-title">Nos services</p>
+      <ul class="menu-cards">
+        <li><a class="menu-card" href="/google-maps-abidjan/" aria-current="page"><span class="menu-ic"><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg></span><span class="menu-txt"><strong>Google Maps</strong><span>Fiche Google Business en 30 minutes</span></span><svg class="i menu-go" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+        <li><a class="menu-card" href="/creation-site-web-abidjan/"><span class="menu-ic"><svg class="i" aria-hidden="true"><use href="#i-globe"/></svg></span><span class="menu-txt"><strong>Sites web</strong><span>Mini-site une page ou site complet</span></span><svg class="i menu-go" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+        <li><a class="menu-card" href="/commande-whatsapp-abidjan/"><span class="menu-ic"><svg class="i" aria-hidden="true"><use href="#i-cart"/></svg></span><span class="menu-txt"><strong>Commandes WhatsApp</strong><span>Menu PDF, page et bon de commande</span></span><svg class="i menu-go" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+        <li><a class="menu-card" href="/gestion-reseaux-sociaux-abidjan/"><span class="menu-ic"><svg class="i" aria-hidden="true"><use href="#i-insta"/></svg></span><span class="menu-txt"><strong>Réseaux sociaux</strong><span>Publications, flyers et vidéos</span></span><svg class="i menu-go" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+      </ul>
+      <ul class="menu-links">
+        <li><a href="/">Accueil</a></li>
+        <li><a href="/#services">Tous les services</a></li>
+        <li><a href="/#methode">Méthode</a></li>
+        <li><a href="/#garanties">Garanties</a></li>
+        <li><a href="/#couverture">Couverture</a></li>
+        <li><a href="/#faq">Questions</a></li>
+      </ul>
+      <a class="btn btn-wa btn-lg menu-cta" href="https://wa.me/2250565861179?text=Bonjour%20DigitalYop%20%21%20Je%20voudrais%20un%20diagnostic%20gratuit%20de%20ma%20pr%C3%A9sence%20en%20ligne.%20Pouvez-vous%20m%27aider%20%3F" target="_blank" rel="noopener">
+        <svg class="i i-fill" aria-hidden="true"><use href="#i-wa"/></svg>Diagnostic gratuit sur WhatsApp
+      </a>
     </nav>
-    <a class="btn btn-wa" href="https://wa.me/2250565861179?text=Bonjour%20DigitalYop%20%21%20Je%20voudrais%20en%20savoir%20plus%20sur%20vos%20services." target="_blank" rel="noopener">
-      <svg class="i i-fill" aria-hidden="true"><use href="#i-wa"/></svg>Nous contacter
-    </a>
   </div>
 </header>
 
@@ -285,7 +307,7 @@
       <p class="eyebrow">À découvrir aussi</p>
       <div class="more-grid">
         <a class="more" href="/creation-site-web-abidjan/"><strong>Création de site web à Abidjan</strong><span>Mini-site une page ou site complet : une présence en ligne crédible pour votre commerce.</span><em>Découvrir <svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></em></a>
-        <a class="more" href="/#services"><strong>Tous nos services</strong><span>Menu WhatsApp, pages de commande, tableaux Excel, réseaux sociaux, visuels et vidéos.</span><em>Découvrir <svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></em></a>
+        <a class="more" href="/commande-whatsapp-abidjan/"><strong>Commandes et menu WhatsApp</strong><span>Menu PDF, page de commande et bon de commande : des commandes claires, sans erreur.</span><em>Découvrir <svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></em></a>
       </div>
     </div>
   </div>
@@ -307,6 +329,8 @@
         <ul>
           <li><a href="/google-maps-abidjan/">Visibilité Google Maps</a></li>
           <li><a href="/creation-site-web-abidjan/">Création de site web</a></li>
+          <li><a href="/commande-whatsapp-abidjan/">Commandes WhatsApp</a></li>
+          <li><a href="/gestion-reseaux-sociaux-abidjan/">Réseaux &amp; visuels</a></li>
           <li><a href="/#services">Tous les services</a></li>
         </ul>
       </div>
@@ -341,5 +365,6 @@
 </div>
 
 <script src="/page.js" defer></script>
+<script src="/menu.js" defer></script>
 </body>
 </html>
